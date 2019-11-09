@@ -247,4 +247,37 @@ img {
   font-size: 3rem;
 }
 
+.players-container {
+    h2 {
+        margin: 2rem;
+    }
+}
+
+.players-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1.5rem;
+}
+
+.player-card {
+    border: 1px solid silver;
+    border-radius: 1rem;
+    width: 20rem;
+    height: 8rem;
+    margin: 1rem auto;
+    padding: 1rem;
+
+    h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: dodgerblue;
+        padding: 0.5rem;
+    }
+
+    h5 {
+        padding: 0.2rem;
+        font-size: 1rem;
+    }
+}
+
 
