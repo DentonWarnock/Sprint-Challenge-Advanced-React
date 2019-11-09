@@ -8,7 +8,7 @@ export default function PlayersList(props) {
             <h2>Players Ranked by Search Interest</h2>
             <div className="players-list">            
                 {props.playersList.map(player => {
-                return <PlayerCard player={player} />
+                return <PlayerCard player={player} key={player.id} />
                 })}
             </div>
         </div>
