@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./styles.scss";
+import axios from 'axios';
+import Nav from './components/Nav';
+import PlayersList from './components/PlayersList';
 
 function App() {
+  const [playersList, setPlayersList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/players`)
+      .then(res => {
+        console.log("App: useEffect: res: ", res);
+        setPlayersList(res.data);
+      })
+      .catch(error => console.log('App: useEffect: error: ', error))      
+  }, [])
   return (
     <div className="App">
-      <p>test</p>
+      <Nav />
+      <PlayersList playersList={playersList} />
     </div>
   );
 }
