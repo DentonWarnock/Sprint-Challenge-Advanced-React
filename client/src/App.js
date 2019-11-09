@@ -8,13 +8,20 @@ function App() {
   const [playersList, setPlayersList] = useState([]);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
     axios
-      .get(`http://localhost:5000/api/players`)
+      .get(`http://localhost:5000/api/players`, { signal: signal})
       .then(res => {
         console.log("App: useEffect: res: ", res);
         setPlayersList(res.data);
       })
       .catch(error => console.log('App: useEffect: error: ', error))      
+
+      return function cleanup() {
+        abortController.abort();
+      }
   }, [])
   return (
     <div className="App">
