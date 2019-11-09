@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import "./styles.scss";
+import axios from 'axios';
+import Nav from './components/Nav';
+import PlayersList from './components/PlayersList';
 
 function App() {
+  const [playersList, setPlayersList] = useState([]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    axios
+      .get(`http://localhost:5000/api/players`, { signal: signal})
+      .then(res => {
+        console.log("App: useEffect: res: ", res);
+        setPlayersList(res.data);
+      })
+      .catch(error => console.log('App: useEffect: error: ', error))      
+
+      return function cleanup() {
+        abortController.abort();
+      }
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Nav />
+      <PlayersList playersList={playersList} />
     </div>
   );
 }
